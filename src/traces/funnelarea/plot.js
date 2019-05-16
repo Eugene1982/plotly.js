@@ -153,7 +153,7 @@ module.exports = function plot(gd, cdModule) {
                             isHorizontal: true,
                             constrained: true,
                             angle: 0,
-                            anchor: trace.insidetextanchor
+                            anchor: 'middle'
                         });
                     }
 
@@ -224,25 +224,10 @@ function attachFxHandlers(sliceTop, gd, cd) {
             pt.valueLabel = pieHelpers.formatPieValue(pt.v, separators);
             if(hoverinfo && hoverinfo.indexOf('value') !== -1) text.push(pt.valueLabel);
 
-            var nPercent = 0;
-            if(hoverinfo && hoverinfo.indexOf('percent initial') !== -1) nPercent++;
-            if(hoverinfo && hoverinfo.indexOf('percent total') !== -1) nPercent++;
-
-            var hasMultiplePercents = nPercent > 1;
-
-            pt.percentInitial = pt.v / cd0.v;
-            pt.percentInitialLabel = Lib.formatPercent(pt.percentInitial);
-            if(hoverinfo && hoverinfo.indexOf('percent initial') !== -1) {
-                tx = pt.percentInitialLabel;
-                if(hasMultiplePercents) tx += ' of initial';
-                text.push(tx);
-            }
-
-            pt.percentTotal = pt.v / cd0.vTotal;
-            pt.percentTotalLabel = Lib.formatPercent(pt.percentTotal);
-            if(hoverinfo && hoverinfo.indexOf('percent total') !== -1) {
-                tx = pt.percentTotalLabel;
-                if(hasMultiplePercents) tx += ' of total';
+            pt.percent = pt.v / cd0.vTotal;
+            pt.percentLabel = Lib.formatPercent(pt.percent);
+            if(hoverinfo && hoverinfo.indexOf('percent') !== -1) {
+                tx = pt.percentLabel;
                 text.push(tx);
             }
 

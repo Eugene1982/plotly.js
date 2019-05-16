@@ -54,8 +54,6 @@ function calc(gd, trace) {
             if(!isNumeric(v)) continue;
             v = +v;
             if(v < 0) continue;
-
-            if(isFunnelarea && v === 0) continue;
         } else v = 1;
 
         label = labels[i];
@@ -103,9 +101,7 @@ function calc(gd, trace) {
         var hasLabel = hasFlag('label');
         var hasText = hasFlag('text');
         var hasValue = hasFlag('value');
-        var hasPercent = hasFlag('percent'); // i.e. percent of total for pie
-        var hasPercentInitial = hasFlag('percent initial');
-        var hasPercentTotal = hasFlag('percent total');
+        var hasPercent = hasFlag('percent');
 
         var separators = fullLayout.separators;
         var text;
@@ -118,14 +114,10 @@ function calc(gd, trace) {
                 if(isValidTextValue(tx)) text.push(tx);
             }
             if(hasValue) text.push(helpers.formatPieValue(pt.v, separators));
-
-            if(isPie && hasPercent) text.push(helpers.formatPiePercent(pt.v / vTotal, separators));
-
-            if(isFunnelarea) {
-                if(hasPercentInitial) text.push(formatPercent(pt.v / cd[0].v));
-                if(hasPercentTotal) text.push(formatPercent(pt.v / vTotal));
+            if(hasPercent) {
+                if(isPie) text.push(helpers.formatPiePercent(pt.v / vTotal, separators));
+                if(isFunnelarea) text.push(formatPercent(pt.v / vTotal));
             }
-
             pt.text = text.join('<br>');
         }
     }

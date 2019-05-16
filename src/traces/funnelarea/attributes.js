@@ -8,7 +8,6 @@
 
 'use strict';
 
-var barAttrs = require('../bar/attributes');
 var pieAttrs = require('../pie/attributes');
 var plotAttrs = require('../../plots/attributes');
 var hovertemplateAttrs = require('../../components/fx/hovertemplate_attributes');
@@ -35,19 +34,16 @@ module.exports = {
     }),
 
     textinfo: extendFlat({}, pieAttrs.textinfo, {
-        flags: ['label', 'text', 'value', 'percent initial', 'percent total']
+        flags: ['label', 'text', 'value', 'percent']
     }),
 
     hoverinfo: extendFlat({}, plotAttrs.hoverinfo, {
-        flags: ['label', 'text', 'value', 'percent initial', 'percent total', 'name']
+        flags: ['label', 'text', 'value', 'percent', 'name']
     }),
 
     hovertemplate: hovertemplateAttrs({}, {
-        keys: ['label', 'color', 'value', 'percent initial', 'percent total', 'text']
+        keys: ['label', 'color', 'value', 'percent', 'text']
     }),
-
-    textposition: extendFlat({}, barAttrs.textposition, { dflt: 'inside' }),
-    insidetextanchor: extendFlat({}, barAttrs.insidetextanchor, { dflt: 'middle' }),
 
     textfont: pieAttrs.textfont,
     insidetextfont: pieAttrs.insidetextfont,

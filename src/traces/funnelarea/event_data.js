@@ -6,39 +6,11 @@
 * LICENSE file in the root directory of this source tree.
 */
 
-
 'use strict';
 
-var appendArrayMultiPointValues = require('../../components/fx/helpers').appendArrayMultiPointValues;
+var pieEventData = require('../pie/event_data');
 
-
-// Note: like other eventData routines, this creates the data for hover/unhover/click events
-// but it has a different API and goes through a totally different pathway.
-// So to ensure it doesn't get misused, it's not attached to the Funnelarea module.
 module.exports = function eventData(pt, trace) {
-    var out = {
-        curveNumber: trace.index,
-        pointNumbers: pt.pts,
-        data: trace._input,
-        fullData: trace,
-        label: pt.label,
-        color: pt.color,
-        value: pt.v,
-        percentInitial: pt.percentInitial,
-        percentTotal: pt.percentTotal,
-        text: pt.text,
 
-        // pt.v (and pt.i below) for backward compatibility
-        v: pt.v
-    };
-
-    // Only include pointNumber if it's unambiguous
-    if(pt.pts.length === 1) out.pointNumber = out.i = pt.pts[0];
-
-    // Add extra data arrays to the output
-    // notice that this is the multi-point version ('s' on the end!)
-    // so added data will be arrays matching the pointNumbers array.
-    appendArrayMultiPointValues(out, trace, pt.pts);
-
-    return out;
+    return pieEventData(pt, trace);
 };

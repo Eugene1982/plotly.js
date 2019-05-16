@@ -52,14 +52,14 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     coerce('hovertemplate');
 
     if(textInfo && textInfo !== 'none') {
-        var textposition = coerce('textposition');
+        var textposition = 'inside';
         handleText(traceIn, traceOut, layout, coerce, textposition, {
             moduleHasSelected: false,
             moduleHasUnSelected: false,
             moduleHasConstrain: false,
             moduleHasCliponaxis: false,
             moduleHasTextangle: false,
-            moduleHasInsideanchor: true
+            moduleHasInsideanchor: false
         });
     }
 
