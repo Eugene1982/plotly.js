@@ -67,4 +67,6 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
 
     coerce('angle');
     coerce('baseratio');
+
+    coerce('sort');
 };

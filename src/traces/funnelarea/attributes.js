@@ -73,5 +73,7 @@ module.exports = {
         description: [
             'Sets the base ratio to the top.'
         ].join(' ')
-    }
+    },
+
+    sort: extendFlat({}, pieAttrs.sort, { dflt: false })
 };
