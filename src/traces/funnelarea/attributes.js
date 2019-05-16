@@ -51,15 +51,15 @@ module.exports = {
 
     domain: domainAttrs({name: 'funnelarea', trace: true, editType: 'calc'}),
 
-    angle: {
+    heightratio: {
         valType: 'number',
         role: 'style',
-        min: 15,
-        max: 120,
-        dflt: 45,
+        min: 0,
+        max: 1,
+        dflt: 1,
         editType: 'plot',
         description: [
-            'Sets the angle.'
+            'Sets the ratio between height length and maximum top length.'
         ].join(' ')
     },
 
@@ -67,11 +67,11 @@ module.exports = {
         valType: 'number',
         role: 'style',
         min: 0,
-        max: 1,
-        dflt: 1 / 3,
+        max: 0.999,
+        dflt: 0.333,
         editType: 'plot',
         description: [
-            'Sets the base ratio to the top.'
+            'Sets the ratio between bottom length and maximum top length.'
         ].join(' ')
     },
 

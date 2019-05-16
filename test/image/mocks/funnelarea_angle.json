@@ -1,8 +1,8 @@
 {
     "data": [
         {
-            "name": "30°",
-            "angle": 30,
+            "heightratio": 0.5,
+            "baseratio": 0,
             "type": "funnelarea",
             "labels": ["A", "B", "C", "D", "E", "F"],
             "values": [6.000006, 5.00005, 4.0004, 3.003, 2.02, 1.1],
@@ -12,8 +12,8 @@
             }
         },
         {
-            "name": "90°",
-            "angle": 90,
+            "heightratio": 0.75,
+            "baseratio": 0,
             "type": "funnelarea",
             "labels": ["A", "B", "C", "D", "E", "F"],
             "values": [6.000006, 5.00005, 4.0004, 3.003, 2.02, 1.1],
@@ -23,8 +23,8 @@
             }
         },
         {
-            "name": "60°",
-            "angle": 60,
+            "heightratio": 1,
+            "baseratio": 0,
             "type": "funnelarea",
             "labels": ["A", "B", "C", "D", "E", "F"],
             "values": [6.000006, 5.00005, 4.0004, 3.003, 2.02, 1.1],
@@ -34,8 +34,7 @@
             }
         },
         {
-            "name": "60° with base 0.5",
-            "angle": 60,
+            "heightratio": 0.5,
             "baseratio": 0.5,
             "type": "funnelarea",
             "labels": ["A", "B", "C", "D", "E", "F"],
@@ -46,7 +45,6 @@
             }
         },
         {
-            "name": "pie",
             "type": "pie",
             "labels": ["A", "B", "C", "D", "E", "F"],
             "values": [6.000006, 5.00005, 4.0004, 3.003, 2.02, 1.1],
@@ -56,8 +54,8 @@
             }
         },
         {
-            "name": "60° reversed",
-            "angle": 60,
+            "heightratio": 0.5,
+            "baseratio": 0.5,
             "type": "funnelarea",
             "labels": ["A", "B", "C", "D", "E", "F"],
             "values": [6.000006, 5.00005, 4.0004, 3.003, 2.02, 1.1],
@@ -67,9 +65,8 @@
             }
         },
         {
-            "name": "60° with base 0",
-            "angle": 60,
-            "baseratio": 0,
+            "heightratio": 1,
+            "baseratio": 0.999,
             "type": "funnelarea",
             "labels": ["A", "B", "C", "D", "E", "F"],
             "values": [6.000006, 5.00005, 4.0004, 3.003, 2.02, 1.1],
@@ -79,9 +76,8 @@
             }
         },
         {
-            "name": "120° with base 0",
-            "angle": 120,
-            "baseratio": 0,
+            "heightratio": 1,
+            "baseratio": 0.5,
             "type": "funnelarea",
             "labels": ["A", "B", "C", "D", "E", "F"],
             "values": [6.000006, 5.00005, 4.0004, 3.003, 2.02, 1.1],
@@ -91,9 +87,8 @@
             }
         },
         {
-            "name": "30° with base 0.5",
-            "angle": 30,
-            "baseratio": 0.5,
+            "heightratio": 1,
+            "baseratio": 0.25,
             "type": "funnelarea",
             "labels": ["A", "B", "C", "D", "E", "F"],
             "values": [6.000006, 5.00005, 4.0004, 3.003, 2.02, 1.1],

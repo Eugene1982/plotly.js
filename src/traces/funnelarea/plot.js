@@ -307,9 +307,7 @@ function setCoords(cd) {
     if(!cd.length) return;
 
     var cd0 = cd[0];
-    var alpha = Math.PI * cd0.trace.angle / 360;
 
-    var aspectRatio = Math.tan(alpha);
     var h = cd0.trace.baseratio;
     var h2 = Math.pow(h, 2);
 
@@ -322,7 +320,7 @@ function setCoords(cd) {
     function calcPos() {
         var q = Math.sqrt(sumSteps);
         return {
-            x: q * aspectRatio,
+            x: q,
             y: -q
         };
     }
@@ -362,12 +360,13 @@ function setCoords(cd) {
 
     var lastX = allPoints[allPoints.length - 1][0];
 
-    var scale = cd0.r / lastX;
+    var scaleX = cd0.r / lastX;
+    var scaleY = cd0.r * cd0.trace.heightratio * 2 / (maxY - minY);
 
     // scale the shape
     for(i = 0; i < allPoints.length; i++) {
-        allPoints[i][0] *= scale;
-        allPoints[i][1] *= scale;
+        allPoints[i][0] *= scaleX;
+        allPoints[i][1] *= scaleY;
     }
 
     // record first position

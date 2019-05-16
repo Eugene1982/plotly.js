@@ -65,7 +65,7 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
 
     handleDomainDefaults(traceOut, layout, coerce);
 
-    coerce('angle');
+    coerce('heightratio');
     coerce('baseratio');
 
     coerce('sort');
