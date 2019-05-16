@@ -29,17 +29,6 @@ var determineOutsideTextFont = piePlot.determineOutsideTextFont;
 
 var scalePies = piePlot.scalePies;
 
-function move(pos) {
-    return 'm' + pos[0] + ',' + pos[1];
-}
-
-function line(start, finish) {
-    var dx = finish[0] - start[0];
-    var dy = finish[1] - start[1];
-
-    return 'l' + dx + ',' + dy;
-}
-
 module.exports = function plot(gd, cdModule) {
     var fullLayout = gd._fullLayout;
 
@@ -441,4 +430,15 @@ function getBetween(a, b) {
         0.5 * (a[0] + b[0]),
         0.5 * (a[1] + b[1])
     ];
+}
+
+function line(a, b) {
+    var dx = b[0] - a[0];
+    var dy = b[1] - a[1];
+
+    return 'l' + dx + ',' + dy;
+}
+
+function move(a) {
+    return 'm' + a[0] + ',' + a[1];
 }
