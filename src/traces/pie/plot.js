@@ -901,11 +901,9 @@ function setCoords(cd) {
 module.exports = {
     plot: plot,
     transformInsideText: transformInsideText,
-
     determineInsideTextFont: determineInsideTextFont,
-    determineOutsideTextFont: determineOutsideTextFont,
-
+    positionTitleOutside: positionTitleOutside,
+    prerenderTitles: prerenderTitles,
+    scalePies: scalePies,
     attachFxHandlers: attachFxHandlers,
-
-    scalePies: scalePies
 };

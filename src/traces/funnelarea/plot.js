@@ -16,19 +16,21 @@ var svgTextUtils = require('../../lib/svg_text_utils');
 
 var barPlot = require('../bar/plot');
 var getTransformToMoveInsideBar = barPlot.getTransformToMoveInsideBar;
-var getTransformToMoveOutsideBar = barPlot.getTransformToMoveOutsideBar;
 
 var pieHelpers = require('../pie/helpers');
 var piePlot = require('../pie/plot');
 
 var attachFxHandlers = piePlot.attachFxHandlers;
 var determineInsideTextFont = piePlot.determineInsideTextFont;
-var determineOutsideTextFont = piePlot.determineOutsideTextFont;
+
 var scalePies = piePlot.scalePies;
+var prerenderTitles = piePlot.prerenderTitles;
+var positionTitleOutside = piePlot.positionTitleOutside;
 
 module.exports = function plot(gd, cdModule) {
     var fullLayout = gd._fullLayout;
 
+    prerenderTitles(cdModule, gd);
     scalePies(cdModule, fullLayout._size);
 
     Lib.makeTraceGroups(fullLayout._funnelarealayer, cdModule, 'trace').each(function(cd) {
@@ -109,9 +111,7 @@ module.exports = function plot(gd, cdModule) {
                             transform: '',
                             'text-anchor': 'middle'
                         })
-                        .call(Drawing.font, textPosition === 'outside' ?
-                          determineOutsideTextFont(trace, pt, gd._fullLayout.font) :
-                          determineInsideTextFont(trace, pt, gd._fullLayout.font))
+                        .call(Drawing.font, determineInsideTextFont(trace, pt, gd._fullLayout.font))
                         .call(svgTextUtils.convertToTspans, gd);
 
                     // position the text relative to the slice
@@ -122,31 +122,55 @@ module.exports = function plot(gd, cdModule) {
                     var y0 = Math.min(pt.BL[1], pt.BR[1]);
                     var y1 = Math.max(pt.TL[1], pt.TR[1]);
 
-                    if(textPosition === 'outside') {
-                        x0 = Math.min(pt.TL[0], pt.BL[0]);
-                        x1 = Math.max(pt.TR[0], pt.BR[0]);
+                    x0 = Math.max(pt.TL[0], pt.BL[0]);
+                    x1 = Math.min(pt.TR[0], pt.BR[0]);
 
-                        transform = getTransformToMoveOutsideBar(x0, x1, y0, y1, textBB, {
-                            isHorizontal: true,
-                            constrained: true,
-                            angle: 0
-                        });
-                    } else {
-                        x0 = Math.max(pt.TL[0], pt.BL[0]);
-                        x1 = Math.min(pt.TR[0], pt.BR[0]);
-
-                        transform = getTransformToMoveInsideBar(x0, x1, y0, y1, textBB, {
-                            isHorizontal: true,
-                            constrained: true,
-                            angle: 0,
-                            anchor: 'middle'
-                        });
-                    }
+                    transform = getTransformToMoveInsideBar(x0, x1, y0, y1, textBB, {
+                        isHorizontal: true,
+                        constrained: true,
+                        angle: 0,
+                        anchor: 'middle'
+                    });
 
                     sliceText.attr('transform',
                         'translate(' + cx + ',' + cy + ')' + transform
                     );
                 });
+            });
+
+            // add the title
+            var titleTextGroup = d3.select(this).selectAll('g.titletext')
+                .data(trace.title.text ? [0] : []);
+
+            titleTextGroup.enter().append('g')
+                .classed('titletext', true);
+            titleTextGroup.exit().remove();
+
+            titleTextGroup.each(function() {
+                var titleText = Lib.ensureSingle(d3.select(this), 'text', '', function(s) {
+                    // prohibit tex interpretation as above
+                    s.attr('data-notex', 1);
+                });
+
+                var txt = fullLayout.meta ?
+                    Lib.templateString(trace.title.text, {meta: fullLayout.meta}) :
+                    trace.title.text;
+
+                titleText.text(txt)
+                    .attr({
+                        'class': 'titletext',
+                        transform: '',
+                        'text-anchor': 'middle',
+                    })
+                .call(Drawing.font, trace.title.font)
+                .call(svgTextUtils.convertToTspans, gd);
+
+                var transform = positionTitleOutside(cd0, fullLayout._size);
+
+                titleText.attr('transform',
+                    'translate(' + transform.x + ',' + transform.y + ')' +
+                    (transform.scale < 1 ? ('scale(' + transform.scale + ')') : '') +
+                    'translate(' + transform.tx + ',' + transform.ty + ')');
             });
         });
     });
