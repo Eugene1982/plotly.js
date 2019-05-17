@@ -346,7 +346,7 @@ function attachFxHandlers(sliceTop, gd, cd) {
         // in case we dragged over the pie from another subplot,
         // or if hover is turned off
         if(trace2.hovertemplate || (hoverinfo !== 'none' && hoverinfo !== 'skip' && hoverinfo)) {
-            var rInscribed = pt.rInscribed;
+            var rInscribed = pt.rInscribed || 0;
             var hoverCenterX = cx + pt.pxmid[0] * (1 - rInscribed);
             var hoverCenterY = cy + pt.pxmid[1] * (1 - rInscribed);
             var separators = fullLayout2.separators;
@@ -904,6 +904,8 @@ module.exports = {
 
     determineInsideTextFont: determineInsideTextFont,
     determineOutsideTextFont: determineOutsideTextFont,
+
+    attachFxHandlers: attachFxHandlers,
 
     scalePies: scalePies
 };

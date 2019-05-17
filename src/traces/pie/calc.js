@@ -14,15 +14,11 @@ var tinycolor = require('tinycolor2');
 
 var Color = require('../../components/color');
 var helpers = require('./helpers');
-var formatPercent = require('../../lib').formatPercent;
 var isValidTextValue = require('../../lib').isValidTextValue;
 
 var extendedColorWayList = {};
 
 function calc(gd, trace) {
-    var isPie = (trace.type === 'pie');
-    var isFunnelarea = (trace.type === 'funnelarea');
-
     var cd = [];
 
     var fullLayout = gd._fullLayout;
@@ -114,10 +110,7 @@ function calc(gd, trace) {
                 if(isValidTextValue(tx)) text.push(tx);
             }
             if(hasValue) text.push(helpers.formatPieValue(pt.v, separators));
-            if(hasPercent) {
-                if(isPie) text.push(helpers.formatPiePercent(pt.v / vTotal, separators));
-                if(isFunnelarea) text.push(formatPercent(pt.v / vTotal));
-            }
+            if(hasPercent) text.push(helpers.formatPiePercent(pt.v / vTotal, separators));
             pt.text = text.join('<br>');
         }
     }
