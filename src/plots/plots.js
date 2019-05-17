@@ -3037,8 +3037,58 @@ function sortAxisCategoriesByValue(axList, gd) {
 }
 
 function setupAxisCategories(axList, fullData) {
+    function findCategories(ax, opts) {
+        var dataAttr = opts.dataAttr || ax._id.charAt(0);
+        var lookup = {};
+        var axData;
+        var i, j;
+
+        if(opts.axData) {
+            // non-x/y case
+            axData = opts.axData;
+        } else {
+            // x/y case
+            axData = [];
+            for(i = 0; i < opts.data.length; i++) {
+                var trace = opts.data[i];
+                if(trace[dataAttr + 'axis'] === ax._id) {
+                    axData.push(trace);
+                }
+            }
+        }
+
+        for(i = 0; i < axData.length; i++) {
+            console.log(axData[i], dataAttr);
+            var vals = axData[i][dataAttr];
+            for(j = 0; j < vals.length; j++) {
+                var v = vals[j];
+                if(v !== null && v !== undefined) {
+                    lookup[v] = 1;
+                }
+            }
+        }
+
+        return Object.keys(lookup);
+    }
+
     for(var i = 0; i < axList.length; i++) {
         var ax = axList[i];
+
+        // TODO: set _initialCategories
+        var order = ax.categoryorder;
+        if(order === 'trace') {
+            ax._initialCategories = [];
+        } else if(order === 'array') {
+            ax._initialCategories = ax.categoryarray.slice();
+        } else {
+            var array = findCategories(ax, {axData: fullData}).sort();
+            if(order === 'category ascending') {
+                ax._initialCategories = array;
+            } else if(order === 'category descending') {
+                ax._initialCategories = array.reverse();
+            }
+        }
+
         ax.clearCalc();
         if(ax.type === 'multicategory') {
             ax.setupMultiCategory(fullData);

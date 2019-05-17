@@ -76,17 +76,18 @@ module.exports = function handleCategoryOrderDefaults(containerIn, containerOut,
         order = containerOut.categoryorder = 'trace';
     }
 
-    // set up things for makeCalcdata
-    if(order === 'trace') {
-        containerOut._initialCategories = [];
-    } else if(order === 'array') {
-        containerOut._initialCategories = array.slice();
-    } else {
-        array = findCategories(containerOut, opts).sort();
-        if(order === 'category ascending') {
-            containerOut._initialCategories = array;
-        } else if(order === 'category descending') {
-            containerOut._initialCategories = array.reverse();
-        }
-    }
+    // console.log(opts.axData);
+    // // set up things for makeCalcdata
+    // if(order === 'trace') {
+    //     containerOut._initialCategories = [];
+    // } else if(order === 'array') {
+    //     containerOut._initialCategories = array.slice();
+    // } else {
+    //     array = findCategories(containerOut, opts).sort();
+    //     if(order === 'category ascending') {
+    //         containerOut._initialCategories = array;
+    //     } else if(order === 'category descending') {
+    //         containerOut._initialCategories = array.reverse();
+    //     }
+    // }
 };
