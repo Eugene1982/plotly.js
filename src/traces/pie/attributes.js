@@ -8,11 +8,11 @@
 
 'use strict';
 
-var colorAttrs = require('../../components/color/attributes');
-var fontAttrs = require('../../plots/font_attributes');
 var plotAttrs = require('../../plots/attributes');
-var hovertemplateAttrs = require('../../components/fx/hovertemplate_attributes');
 var domainAttrs = require('../../plots/domain').attributes;
+var fontAttrs = require('../../plots/font_attributes');
+var colorAttrs = require('../../components/color/attributes');
+var hovertemplateAttrs = require('../../components/fx/hovertemplate_attributes');
 
 var extendFlat = require('../../lib/extend').extendFlat;
 

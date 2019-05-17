@@ -18,9 +18,7 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
-    var coerceFont = Lib.coerceFont;
     var len;
-
     var vals = coerce('values');
     var hasVals = Lib.isArrayOrTypedArray(vals);
     var labels = coerce('labels');
@@ -72,12 +70,11 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     if(title) {
         var titlePosition = coerce('title.position', hole ? 'middle center' : 'top center');
         if(!hole && titlePosition === 'middle center') traceOut.title.position = 'top center';
-        coerceFont(coerce, 'title.font', layout.font);
+        Lib.coerceFont(coerce, 'title.font', layout.font);
     }
 
     coerce('sort');
     coerce('direction');
     coerce('rotation');
-
     coerce('pull');
 };

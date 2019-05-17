@@ -9,9 +9,10 @@
 'use strict';
 
 var pieAttrs = require('../pie/attributes');
+var sunburstMarker = require('../sunburst/attributes').marker;
 var plotAttrs = require('../../plots/attributes');
-var hovertemplateAttrs = require('../../components/fx/hovertemplate_attributes');
 var domainAttrs = require('../../plots/domain').attributes;
+var hovertemplateAttrs = require('../../components/fx/hovertemplate_attributes');
 
 var extendFlat = require('../../lib/extend').extendFlat;
 
@@ -21,7 +22,7 @@ module.exports = {
     label0: pieAttrs.label0,
     dlabel: pieAttrs.dlabel,
     values: pieAttrs.values,
-    marker: pieAttrs.marker,
+    marker: sunburstMarker,
     text: pieAttrs.text,
     hovertext: pieAttrs.hovertext,
 
@@ -48,6 +49,8 @@ module.exports = {
     textfont: pieAttrs.textfont,
     insidetextfont: pieAttrs.insidetextfont,
     outsidetextfont: pieAttrs.outsidetextfont,
+
+    title: pieAttrs.title,
 
     domain: domainAttrs({name: 'funnelarea', trace: true, editType: 'calc'}),
 

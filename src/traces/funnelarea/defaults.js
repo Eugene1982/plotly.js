@@ -19,7 +19,6 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     }
 
     var len;
-
     var vals = coerce('values');
     var hasVals = Lib.isArrayOrTypedArray(vals);
     var labels = coerce('labels');
@@ -65,8 +64,14 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
 
     handleDomainDefaults(traceOut, layout, coerce);
 
-    coerce('heightratio');
-    coerce('baseratio');
+    var title = coerce('title.text');
+    if(title) {
+        var titlePosition = coerce('title.position', 'top center');
+        if(titlePosition === 'middle center') traceOut.title.position = 'top center';
+        Lib.coerceFont(coerce, 'title.font', layout.font);
+    }
 
     coerce('sort');
+    coerce('heightratio');
+    coerce('baseratio');
 };
