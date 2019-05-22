@@ -1274,7 +1274,7 @@ describe('Test polar interactions:', function() {
                 })
                 .then(function() {
                     expect(events.length).toEqual(path.length - 1);
-                    expect(events[0]['polar.radialaxis.range']).toBeCloseToArray([5, 11], 0.1);
+                    expect(events[0]['polar.radialaxis.range']).toBeCloseToArray([6, 11], 0.1);
                     expect(relayoutCallback).toHaveBeenCalledTimes(1);
                 })
                 .catch(failTest)
@@ -1303,9 +1303,8 @@ describe('Test polar interactions:', function() {
                 return _drag(dragPos0, [0, -110], 10);
             })
             .then(function() {
-                console.log(events);
                 expect(events.length).toEqual(10);
-                expect(events.splice(-1, 1)[0]['polar.angularaxis.rotation']).toBeCloseTo(32, 0.1);
+                expect(events.splice(-1, 1)[0]['polar.angularaxis.rotation']).toBeCloseTo(29, 0);
                 expect(relayoutCallback).toHaveBeenCalledTimes(1);
             })
             .catch(failTest)
